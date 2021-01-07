@@ -1,42 +1,42 @@
 ﻿@page "/"
 
 <div id="parent">
-    <!--Inicio de navbar-->
+<!--Inicio de navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Super Perros</a>
+            <a class="navbar-brand" href="/">Super Perros</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Comprar</a>
+                        <a class="nav-link" href="/Publicate">Publicate</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Mascotas
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Perros</a></li>
-                            <li><a class="dropdown-item" href="#">Gatos</a></li>
+                            <li><a class="dropdown-item" href="/Perros">Perros</a></li>
+                            <li><a class="dropdown-item" href="/Gatos">Gatos</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Adoptar Perros</a></li>
                             <li><a class="dropdown-item" href="#">Adoptar Gatos</a></li>
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">Search</button>
-                </form>
+                <EditForm class="d-flex" Model="list">
+                    <input class="form-control me-2" @bind-value="busqueda" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit" @onclick="Buscar">Search</button>
+                </EditForm>
             </div>
         </div>
     </nav>
-    <!--Fin de navbar-->
+    <!--Fin de navbar--> 
 
     <!--Inicio del contenido del cuerpo-->
     <div id="bodyContent">
@@ -77,20 +77,49 @@
         <!--Fin del carousel-->
         <!--Inicio de las tarjetas de perros-->
         <div id="myCards">
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card h-100">
-                        <a href="#"><img src="img/perro1.jpg" class="card-img-top" alt="..."></a>
-                        <div class="card-body">
-                            <a href="#"><h5 class="card-title text-center font-weight-bold">Rottweiler Macho</h5></a>
-                            <hr />
-                            <p class="card-text text-center"><small class="font-weight-bold bg-light">categoria: perros</small></p>
-                            <p class="card-text text-center price-adjust">Precio: $35,000.00</p>
-                            <p class="card-text text-center"><small class="font-weight-bold bg-light">Raza: Rottweiler</small></p>
+            <div id="recentPostContainer" class="homerow-5 homerow-boxshadow">
+                <h2 class="standard-box-title">Publicaciones recientes</h2>
+                <hr />
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    @foreach (var item in list)
+                    {
+                        <div class="col">
+                            <div class="card h-100">
+                                <a href="/muestra-unitaria/@item.PostId"><img src="@item.Thumbnail" class="card-img-top" alt="..."></a>
+                                <div class="card-body">
+                                    <a href="/muestra-unitaria/@item.PostId"><h5 class="card-title text-center font-weight-bold">@item.PostDetail.LongDescription</h5></a>
+                                    <hr />
+                                    <p class="card-text text-center"><small class="font-weight-bold bg-light">categoria: perros</small></p>
+                                    <p class="card-text text-center price-adjust">Precio: $@item.PostDetail.Price</p>
+                                    <p class="card-text text-center"><small class="font-weight-bold bg-light">Raza: @item.PostDetail.Race</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="clearblock"></div>
+                </div>
+            </div>
+        </div>
+        <div id="" class="homerow-5 homerow-boxshadow">
+            <img style="width:35%" ; src="img/Anuncio1.png" alt="Anuncio1" />
+            <img style="width:30%" ; src="img/Anuncio3.jpg" alt="Anuncio3" />
+            <img style="width:30%" ; src="img/Anuncio5.png" alt="Anuncio5" />
+        </div>
+            <!--Fin de las tarjetas de perros-->
+            <!-- Este Codigo fue el que tu hiciste NATA al principio -->
+            @*<div class="col">
+                        <div class="card h-100">
+                            <a href="/muestra-unitaria"><img src="img/perro1.jpg" class="card-img-top" alt="..."></a>
+                            <div class="card-body">
+                                <a href="muestra-unitaria"><h5 class="card-title text-center font-weight-bold">Rottweiler Macho</h5></a>
+                                <hr />
+                                <p class="card-text text-center"><small class="font-weight-bold bg-light">categoria: perros</small></p>
+                                <p class="card-text text-center price-adjust">Precio: $35,000.00</p>
+                                <p class="card-text text-center"><small class="font-weight-bold bg-light">Raza: Rottweiler</small></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
+                    <div class="col">
                     <div class="card h-100">
                         <a href="#"><img src="img/perro2.jpg" class="card-img-top" alt="..."></a>
                         <div class="card-body">
@@ -176,15 +205,28 @@
                             <p class="card-text text-center"><small class="font-weight-bold bg-light">Raza: Pitbull</small></p>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>*@
+            <!-- Final: Este Codigo fue el que tu hiciste NATA al principio -->
+
+            <!--Inicio del footers-->
+            <footer class="mt-4 mb-4 p-2 bg-dark w-100">
+                <h6 style="color:white;" class="text-center">&copy; 2021 DigitalView</h6>
+            </footer>
+            <!--Fin de las tarjetas de perros-->
         </div>
-        <!--Fin de las tarjetas de perros-->
-        <!--Inicio del footers-->
-        <footer class="mt-4 mb-4 p-2 bg-dark w-100">
-            <h6 style="color:white;" class="text-center">&copy; 2021 NatanaelUF</h6>
-        </footer>
-        <!--Fin de las tarjetas de perros-->
+        <!--Fin del contenido del cuerpo-->
     </div>
-    <!--Fin del contenido del cuerpo-->
-</div>
+
+@code{
+    List<Post> list = new List<Post>();
+    private string busqueda = "";
+    protected async override Task OnInitializedAsync()
+    {
+        list = await postServices.GetAllPosts();
+    }
+
+    private async Task Buscar()
+    {
+        list = await postServices.GetList(x => x.PostDetail.LongDescription.Contains(busqueda.Trim()));
+    }
+}

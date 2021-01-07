@@ -1,0 +1,132 @@
+﻿@page "/muestra-unitaria/{Id:int}"
+
+<style>
+    #Thumbnail {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 300px;
+        height: 300px;
+    }
+
+    #item2 {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 100px;
+        height: 100px;
+    }
+</style>
+
+<!--Inicio de navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Super Perros</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Publicate">Publicate</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Mascotas
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="Perros">Perros</a></li>
+                        <li><a class="dropdown-item" href="/Gatos">Gatos</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Adoptar Perros</a></li>
+                        <li><a class="dropdown-item" href="#">Adoptar Gatos</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav> 
+<!--Fin de navbar-->
+
+<div id="top-banner">
+    <img style="width:35%" ; src="img/Anuncio1.png" alt="Anuncio1" />
+    <img style="width:30%" ; src="img/Anuncio5.png" alt="Anuncio5" />
+</div>
+<hr />
+
+<section>
+    <!-- Inicio detalle del post -->
+    <div class="card">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="#"><img id="Thumbnail" src="@post.Thumbnail" alt="..."></a>
+                    </li>
+
+                    <li class="list-group-item">
+                        <a href="#"><img id="item2" src="@post.Thumbnail" alt="..."></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <div class="card-body">
+                    <h2 class="card-title text-center font-weight-bold">@post.PostDetail.LongDescription</h2>
+                    <hr />
+                    <p class="h3">
+                        <small>Categoria: Perros </small>
+                    </p>
+                    <p class="h3">Precio: $@post.PostDetail.Price</p>
+                    <p class="h3"><small>Raza: @post.PostDetail.Race</small></p>
+                    <p class="h3"><small>Genero: @post.PostDetail.Gender</small></p>
+                    <p class="h3"><small>ubicación: @post.PostDetail.Race</small></p>
+                </div>
+            </div>
+            <!--Inicio del footers-->
+            <footer class="mt-4 mb-4 p-2 bg-dark w-100">
+                <h6 style="color:white;" class="text-center">&copy; 2021 DigitalView</h6>
+            </footer>
+            <!--Fin de las tarjetas de perros-->
+        </div>
+    </div>
+</section>
+
+@*<div id="myCards">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <a href="muestra-unitaria"><img src="img/perro1.jpg" class="card-img-top" alt="..."></a>
+                <div class="card-body">
+                    <a href="#"><h5 class="card-title text-center font-weight-bold">Rottweiler Macho</h5></a>
+                    <hr />
+                    <p class="card-text text-center"><small class="font-weight-bold bg-light">categoria: perros</small></p>
+                    <p class="card-text text-center price-adjust">Precio: $35,000.00</p>
+                    <p class="card-text text-center"><small class="font-weight-bold bg-light">Raza: Rottweiler</small></p>
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+    </div>*@
+
+<!-- Fin detalle del post -->
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    Post post = new Post();
+
+    protected async override Task OnInitializedAsync()
+    {
+        post = await postServices.SearchPost(Id);
+    }
+}
